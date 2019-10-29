@@ -1,15 +1,17 @@
 package main
 
 import (
+	"os"
+
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
-
 )
 
-func main(){
-	db, err := gorm.Open("postgres", "postgres://xzewemse:KsPpTENkwPnhzYvE7kLjx1m98mXwrbjQ@salt.db.elephantsql.com:5432/xzewemse")
+func main() {
+	dbUrl := os.Getenv("DBURL")
 
+	db, err := gorm.Open("postgres", dbUrl)
 
 	if err != nil {
 		panic("failed to connect database")
@@ -17,22 +19,27 @@ func main(){
 
 	defer db.Close()
 
-
 	db.AutoMigrate(&Event{})
 
-
 	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
+
+	r.LoadHTMLFiles("assets/index.html")
+
+	if err != nil {
+		panic("failed to load html files")
+	}
+
+	r.GET("/", func(c *gin.Context) {
+		c.HTML(200, "index.html", gin.H{
+			"title": "Main website",
 		})
 	})
 
-	r.GET("api/events", func(c *gin.Context){
+	r.GET("api/events", func(c *gin.Context) {
 		events := make([]Event, 0)
 		db.Find(&events)
 		c.JSON(200, gin.H{
-			"events" : events,
+			"events": events,
 		})
 	})
 	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
