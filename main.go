@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
@@ -23,15 +24,21 @@ func main() {
 
 	r := gin.Default()
 
-	r.LoadHTMLFiles("assets/index.html")
+	r.LoadHTMLFiles("html/index.html")
 
 	if err != nil {
 		panic("failed to load html files")
 	}
 
+	r.Static("/assets", "./assets")
+
 	r.GET("/", func(c *gin.Context) {
+		events := make([]Event, 0)
+		db.Find(&events)
 		c.HTML(200, "index.html", gin.H{
-			"title": "Main website",
+			"title":  "Main website",
+			"today":  time.Now(),
+			"events": events,
 		})
 	})
 
