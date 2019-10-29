@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"time"
@@ -105,6 +106,7 @@ func init() {
 		SET (id, date, image, title, location) = (EXCLUDED.id, EXCLUDED.date, EXCLUDED.image, EXCLUDED.title, EXCLUDED.location) ;
 	`
 	_, err := db.Exec(makeSchema)
+	fmt.Println(err)
 	if err != nil {
 		log.Panicln("Could not create database schema:", err)
 	}
