@@ -17,8 +17,20 @@
     <link rel="stylesheet" href="../assets/main.css"/>
 </head>
 <body>
+
 <div class="wrapper">
-    <h1 class="title">Winter Sound Events</h1>
+
+    {{/* top navigation */}}
+    <header>
+        <div class="logo-wrap">
+            <img id="logo" alt="logo" src="../assets/logo.png" width="50px"/>
+            <h3 class="logo-text">Winter Sound</h3>
+        </div>
+    </header>
+
+
+
+    <h1 class="title">Welcome to Winter Sound events</h1>
     <p>
         Hi, today is {{.today.Format "Jan 02, 2006"}}
     </p>
@@ -38,9 +50,11 @@
     </ul>
     <div class="push"></div>
 </div>
-<footer class="footer">
-    <p>Footer</p>
-</footer>
-</body>
 
+
+    {{/* footer */}}
+    <footer class="footer">
+        <a href="/about">About</a>
+    </footer>
+</body>
 </html>
