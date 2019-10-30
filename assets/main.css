@@ -4,21 +4,23 @@ body {
   margin: 0;
 }
 
-.wrapper {
-  min-height: 100%;
+body {
+  display: flex;
+  flex-direction: column;
+}
 
-  /* Equal to height of footer */
-  /* But also accounting for potential margin-bottom of last child */
-  margin-bottom: -50px;
+.wrapper {
+  padding: 25px;
+  flex: 1 0 auto;
 }
 
 .footer {
-  height: 50px;
+  flex-shrink: 0;
   background-color: rgb(248, 182, 158);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 20px;
+  padding: 20px;
 }
 
 .footer-links > a {
@@ -33,9 +35,4 @@ body {
 
 .logo-text {
   margin: 0;
-}
-
-.content {
-  height: 100%;
-  padding: 0px 15px;
 }
