@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Winter Sound</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="http://localhost:8080/assets/main.css"/>
+</head>
+<body>
+<div class="wrapper">
+    <h1 class="title">Winter Sound Events</h1>
+    <p>
+        Hi, today is {{.today.Format "Jan 02, 2006"}}
+    </p>
+    <p>
+        <a href="/events/new">Create</a> a new event.
+    </p>
+    <ul>
+        {{range .events}}
+            <li>
+                <a href="/events/{{.ID}}">{{.Title}}</a>
+                at
+                <time>
+                    {{.Date.Format "2006-01-02T15:04:05"}}
+                </time>
+            </li>
+        {{end}}
+    </ul>
+    <div class="push"></div>
+</div>
+<footer class="footer">
+    <p>Footer</p>
+</footer>
+</body>
+
+</html>
