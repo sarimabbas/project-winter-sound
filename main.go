@@ -24,7 +24,7 @@ func main() {
 
 	r := gin.Default()
 
-	r.LoadHTMLFiles("html/index.html")
+	r.LoadHTMLFiles("html/index.html", "html/about.html")
 
 	if err != nil {
 		panic("failed to load html files")
@@ -39,6 +39,12 @@ func main() {
 			"title":  "Main website",
 			"today":  time.Now(),
 			"events": events,
+		})
+	})
+
+	r.GET("/about", func(c *gin.Context) {
+		c.HTML(200, "about.html", gin.H{
+			"title": "About page",
 		})
 	})
 
