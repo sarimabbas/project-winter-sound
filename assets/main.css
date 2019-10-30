@@ -34,3 +34,8 @@ body {
 .logo-text {
   margin: 0;
 }
+
+.content {
+  height: 100%;
+  padding: 0px 15px;
+}
