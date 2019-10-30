@@ -30,7 +30,10 @@ body {
 .logo-wrap {
   display: flex;
   align-items: center;
-  border: 0.8px solid lightgray;
+}
+
+.nav {
+  border-bottom: 0.8px solid lightgray;
 }
 
 .logo-text {
@@ -39,4 +42,14 @@ body {
 
 .attribution {
   text-align: right;
+}
+
+.no-link,
+.no-link:hover {
+  all: unset;
+  cursor: pointer;
+}
+
+.no-link:hover {
+  filter: brightness(1.5);
 }
