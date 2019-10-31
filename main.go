@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -24,7 +25,7 @@ func main() {
 
 	r := gin.Default()
 
-	r.LoadHTMLFiles("html/index.html", "html/about.html")
+	r.LoadHTMLFiles("html/index.html", "html/about.html", "html/event.html")
 
 	if err != nil {
 		panic("failed to load html files")
@@ -48,12 +49,43 @@ func main() {
 		})
 	})
 
-	r.GET("api/events", func(c *gin.Context) {
+	r.GET("/api/events", func(c *gin.Context) {
 		events := make([]Event, 0)
 		db.Find(&events)
 		c.JSON(200, gin.H{
 			"events": events,
 		})
 	})
+
+	r.GET("/api/events/:id", func(c *gin.Context) {
+		id := c.Param("id")
+		idNum, err := strconv.Atoi(id)
+		if err != nil {
+			c.JSON(404, gin.H{
+				"error": "id error",
+			})
+		} else {
+			event := Event{}
+			db.Where("id = ?", idNum).First(&event)
+			c.JSON(200, event)
+		}
+	})
+
+	r.GET("/events/:id", func(c *gin.Context) {
+		id := c.Param("id")
+		idNum, err := strconv.Atoi(id)
+		if err != nil {
+			c.JSON(404, gin.H{
+				"error": "id error",
+			})
+		} else {
+			event := Event{}
+			db.Where("id = ?", idNum).First(&event)
+			c.HTML(200, "event.html", gin.H{
+				"event": event,
+			})
+		}
+	})
+
 	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
