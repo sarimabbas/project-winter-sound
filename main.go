@@ -25,7 +25,7 @@ func main() {
 
 	r := gin.Default()
 
-	r.LoadHTMLFiles("html/index.html", "html/about.html", "html/event.html")
+	r.LoadHTMLFiles("html/index.html", "html/about.html", "html/event.html", "html/new.html")
 
 	if err != nil {
 		panic("failed to load html files")
@@ -72,7 +72,18 @@ func main() {
 	})
 
 	r.GET("/events/:id", func(c *gin.Context) {
+		// get id
 		id := c.Param("id")
+
+		// new event page
+		if id == "new" {
+			c.HTML(200, "new.html", gin.H{
+				"title": "Create event page",
+			})
+			return
+		}
+
+		// event detail page
 		idNum, err := strconv.Atoi(id)
 		if err != nil {
 			c.JSON(404, gin.H{
