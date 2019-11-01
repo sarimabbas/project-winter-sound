@@ -57,3 +57,7 @@ body {
 #logo {
   width: 50px;
 }
+
+.new-event-form {
+  max-width: 70vw;
+}
