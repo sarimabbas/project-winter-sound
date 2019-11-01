@@ -4,5 +4,5 @@
 
 ## Sprint reports
 
-- [Sprint 1](./sprints/sprint1.md)
+- [Sprint 1](./sprints/sprint1)
 
