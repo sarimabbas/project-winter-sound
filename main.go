@@ -98,5 +98,35 @@ func main() {
 		}
 	})
 
+	r.POST("/events/new", func(c *gin.Context) {
+		// get data from form
+		title := c.PostForm("event-title")
+		location := c.PostForm("event-location")
+		image := c.PostForm("event-image")
+		date := c.PostForm("event-datetime")
+
+		// next steps:
+
+		// 1.
+		// validate data and return error code if invalid
+		// this error is displayed on the form
+		// validate image URL (has to be URL + end in image extension)
+		// validate datetime string
+
+		// 2.
+		// create new event in database
+
+		// 3.
+		// redirect to newly created event page
+
+		// display (debug)
+		c.JSON(200, gin.H{
+			"title":    title,
+			"location": location,
+			"image":    image,
+			"date":     date,
+		})
+	})
+
 	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }

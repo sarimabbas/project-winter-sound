@@ -30,26 +30,23 @@
             {{/* intro text */}}
             <h1 class="title">Create a new event</h1>
             {{/* form input */}}
-            <form class="new-event-form">
+            <form class="new-event-form" action="/events/new" method="POST">
                 <div class="form-group">
                     <label for="event-title">Title</label>
-                    <input type="text" class="form-control" id="event-title" placeholder="Enter title of event e.g Halloween Show">
+                    <input type="text" class="form-control" id="event-title" name="event-title" placeholder="Enter title of event e.g Halloween Show">
                 </div>
                 <div class="form-group">
                     <label for="event-location">Location</label>
-                    <input type="text" class="form-control" id="event-location" placeholder="Enter location e.g. Woolsey Hall">
+                    <input type="text" class="form-control" id="event-location" name="event-location" placeholder="Enter location e.g. Woolsey Hall">
                 </div>
                 <div class="form-group">
                     <label for="event-image">Image URL</label>
-                    <input type="url" class="form-control" id="event-image" placeholder="https://example.com/cat.jpg">
+                    <input type="url" class="form-control" id="event-image" name="event-image" placeholder="https://example.com/cat.jpg">
                 </div>
+                {{/* Date time of event */}}
                 <div class="form-group">
-                    <label for="event-date">Date of event</label>
-                    <input type="date" class="form-control" id="event-date">
-                </div>
-                  <div class="form-group">
-                    <label for="event-time">Time of event</label>
-                    <input type="time" class="form-control" id="event-time">
+                    <label for="event-datetime">Date & Time</label>
+                    <input type="text" class="form-control" id="event-datetime" name="event-datetime" placeholder="YYYY-MM-DDTHH:MM">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
