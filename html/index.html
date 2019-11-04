@@ -34,8 +34,9 @@
             </p>
             {{/* create new event */}}
             <a href="/events/new" class="btn btn-primary">Create new event</a>
+            <br/><br/>
             {{/* list existing events */}}
-            <ul>
+            {{/* <ul>
                 {{range .events}}
                     <li>
                         <a href="/events/{{.ID}}">{{.Title}}</a>
@@ -45,7 +46,7 @@
                         </time>
                     </li>
                 {{end}}
-            </ul>
+            </ul> */}}
             <div class="card-grid">
                 {{range .events}}
                     <div class="card">

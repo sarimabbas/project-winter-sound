@@ -29,7 +29,27 @@
         <div class="wrapper">
             {{/* intro text */}}
             <h1 class="title">{{ .event.Title }}</h1>
-
+            <img src="{{.event.Image}}" alt="{{.event.Title}}">
+            <br/><br/>
+            <h2>Details</h2>
+            <ul>
+                <li>Date & Time: <time>{{.event.Date}}</time></li>
+                <li>Location: {{.event.Location}}</li> 
+            </ul>
+            <h2>Donate</h2>
+            <a href="/events/{{.event.ID}}/donate" class="btn btn-primary">Donate</a>
+            {{/* <a href="/events/{{.event.ID}}/donate" class="btn btn-primary">Support</a> */}}
+            <br/><br/>
+            <h2>Attendees</h2>
+            <form class="rsvp-event-form" action="/events/{{.event.ID}}" method="POST">
+                <div class="form-group">
+                    <label for="rsvp-email">Your email</label>
+                        <div class="form-single-line">
+                            <input type="text" class="form-control" id="rsvp-email" name="rsvp-email" placeholder="jane.doe@gmail.com">
+                            <button type="submit" class="btn btn-primary btn-single-line">RSVP</button>
+                        </div>
+                </div>
+            </form>
         </div>
         {{/* footer */}}
         <footer class="footer">
