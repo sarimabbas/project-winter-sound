@@ -25,7 +25,11 @@ func main() {
 
 	r := gin.Default()
 
-	r.LoadHTMLFiles("html/index.html", "html/about.html", "html/event.html", "html/new.html")
+	r.LoadHTMLFiles("html/index.html",
+		"html/about.html",
+		"html/event.html",
+		"html/new.html",
+		"html/components.html")
 
 	if err != nil {
 		panic("failed to load html files")
