@@ -132,26 +132,14 @@ func main() {
 
 		if len(title) < 5 || len(title) > 50 {
 			c.HTML(200, "new.html", gin.H{
-				"title":      "Create event page",
-				"error":      true,
-				"title_text": title,
-				"location":   location,
-				"image":      image,
-				"date":       date,
-				"error_type": "Invalid Title - Must be more than 5 characters and less than 50.",
+				"errorTitle": "Title must be between 5 and 50 characters.",
 			})
 			return
 		}
 
 		if len(location) < 5 || len(location) > 50 {
 			c.HTML(200, "new.html", gin.H{
-				"title":      "Create event page",
-				"error":      true,
-				"title_text": title,
-				"location":   location,
-				"image":      image,
-				"date":       date,
-				"error_type": "Invalid Location - Must be more than 5 characters and less than 50.",
+				"errorLocation": "Location must be more than 5 characters and less than 50.",
 			})
 			return
 		}
@@ -160,26 +148,14 @@ func main() {
 
 		if !isValidUrl(image) {
 			c.HTML(200, "new.html", gin.H{
-				"title":      "Create event page",
-				"error":      true,
-				"title_text": title,
-				"location":   location,
-				"image":      image,
-				"date":       date,
-				"error_type": "Invalid URL",
+				"errorImage": "Invalid URL",
 			})
 			return
 		}
 
 		if err != nil || !urlObj.IsAbs() {
 			c.HTML(200, "new.html", gin.H{
-				"title":      "Create event page",
-				"error":      true,
-				"title_text": title,
-				"location":   location,
-				"image":      image,
-				"date":       date,
-				"error_type": "Invalid URL",
+				"errorImage": "Invalid URL",
 			})
 			return
 		}
@@ -190,13 +166,7 @@ func main() {
 
 		if fileTypeStr[1] != "jpg" && fileTypeStr[1] != "png" && fileTypeStr[1] != "jpeg" && fileTypeStr[1] != "gif" && fileTypeStr[1] != ".gifv" {
 			c.HTML(200, "new.html", gin.H{
-				"title":      "Create event page",
-				"error":      true,
-				"title_text": title,
-				"location":   location,
-				"image":      image,
-				"date":       date,
-				"error_type": "Invalid Image Type (must be .png, .jpg, .jpeg, .gif or .gifv)",
+				"errorImage": "Invalid Image Type (must be .png, .jpg, .jpeg, .gif or .gifv)",
 			})
 			return
 		}
@@ -205,13 +175,7 @@ func main() {
 
 		if len(datetime) != 2 {
 			c.HTML(200, "new.html", gin.H{
-				"title":      "Create event page",
-				"error":      true,
-				"title_text": title,
-				"location":   location,
-				"image":      image,
-				"date":       date,
-				"error_type": "Invalid Date",
+				"errorDatetime": "Invalid Date",
 			})
 			return
 		}
@@ -221,26 +185,14 @@ func main() {
 		if len(dateStr) != 3 {
 
 			c.HTML(200, "new.html", gin.H{
-				"title":      "Create event page",
-				"error":      true,
-				"title_text": title,
-				"location":   location,
-				"image":      image,
-				"date":       date,
-				"error_type": "Invalid Date",
+				"errorDatetime": "Invalid Date",
 			})
 			return
 		}
 
 		if len(dateStr[0]) != 4 {
 			c.HTML(200, "new.html", gin.H{
-				"title":      "Create event page",
-				"error":      true,
-				"title_text": title,
-				"location":   location,
-				"image":      image,
-				"date":       date,
-				"error_type": "Invalid Date",
+				"errorDatetime": "Invalid Date",
 			})
 			return
 		}
@@ -248,26 +200,14 @@ func main() {
 		yearInt, err := strconv.Atoi(dateStr[0])
 		if err != nil {
 			c.HTML(200, "new.html", gin.H{
-				"title":      "Create event page",
-				"error":      true,
-				"title_text": title,
-				"location":   location,
-				"image":      image,
-				"date":       date,
-				"error_type": "Invalid Date",
+				"errorDatetime": "Invalid Date",
 			})
 			return
 		}
 
 		if len(dateStr[1]) != 2 {
 			c.HTML(200, "new.html", gin.H{
-				"title":      "Create event page",
-				"error":      true,
-				"title_text": title,
-				"location":   location,
-				"image":      image,
-				"date":       date,
-				"error_type": "Invalid Date",
+				"errorDatetime": "Invalid Date",
 			})
 			return
 		}
@@ -275,26 +215,14 @@ func main() {
 		monthInt, err := strconv.Atoi(dateStr[1])
 		if err != nil {
 			c.HTML(200, "new.html", gin.H{
-				"title":      "Create event page",
-				"error":      true,
-				"title_text": title,
-				"location":   location,
-				"image":      image,
-				"date":       date,
-				"error_type": "Invalid Date",
+				"errorDatetime": "Invalid Date",
 			})
 			return
 		}
 
 		if len(dateStr[2]) != 2 {
 			c.HTML(200, "new.html", gin.H{
-				"title":      "Create event page",
-				"error":      true,
-				"title_text": title,
-				"location":   location,
-				"image":      image,
-				"date":       date,
-				"error_type": "Invalid Date",
+				"errorDatetime": "Invalid Date",
 			})
 			return
 		}
@@ -302,13 +230,7 @@ func main() {
 		dayInt, err := strconv.Atoi(dateStr[2])
 		if err != nil {
 			c.HTML(200, "new.html", gin.H{
-				"title":      "Create event page",
-				"error":      true,
-				"title_text": title,
-				"location":   location,
-				"image":      image,
-				"date":       date,
-				"error_type": "Invalid Date",
+				"errorDatetime": "Invalid Date",
 			})
 			return
 		}
@@ -317,26 +239,14 @@ func main() {
 
 		if len(timeStr) != 2 {
 			c.HTML(200, "new.html", gin.H{
-				"title":      "Create event page",
-				"error":      true,
-				"title_text": title,
-				"location":   location,
-				"image":      image,
-				"date":       date,
-				"error_type": "Invalid Date",
+				"errorDatetime": "Invalid Date",
 			})
 			return
 		}
 
 		if len(timeStr[0]) != 2 {
 			c.HTML(200, "new.html", gin.H{
-				"title":      "Create event page",
-				"error":      true,
-				"title_text": title,
-				"location":   location,
-				"image":      image,
-				"date":       date,
-				"error_type": "Invalid Date",
+				"errorDatetime": "Invalid Date",
 			})
 			return
 		}
@@ -344,26 +254,14 @@ func main() {
 		hourInt, err := strconv.Atoi(timeStr[0])
 		if err != nil {
 			c.HTML(200, "new.html", gin.H{
-				"title":      "Create event page",
-				"error":      true,
-				"title_text": title,
-				"location":   location,
-				"image":      image,
-				"date":       date,
-				"error_type": "Invalid Date",
+				"errorDatetime": "Invalid Date",
 			})
 			return
 		}
 
 		if len(timeStr[1]) != 2 {
 			c.HTML(200, "new.html", gin.H{
-				"title":      "Create event page",
-				"error":      true,
-				"title_text": title,
-				"location":   location,
-				"image":      image,
-				"date":       date,
-				"error_type": "Invalid Date",
+				"errorDatetime": "Invalid Date",
 			})
 			return
 		}
@@ -371,13 +269,7 @@ func main() {
 		minInt, err := strconv.Atoi(timeStr[1])
 		if err != nil {
 			c.HTML(200, "new.html", gin.H{
-				"title":      "Create event page",
-				"error":      true,
-				"title_text": title,
-				"location":   location,
-				"image":      image,
-				"date":       date,
-				"error_type": "Invalid Date",
+				"errorDatetime": "Invalid Date",
 			})
 			return
 		}
@@ -398,7 +290,6 @@ func main() {
 
 		c.HTML(200, "index.html", gin.H{
 			"title":  "Main website",
-			"today":  time.Now(),
 			"events": events,
 		})
 		// 2.
