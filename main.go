@@ -117,10 +117,10 @@ func main() {
 
 	r.POST("/events/new", func(c *gin.Context) {
 		// get data from form
-		title := c.PostForm("event-title")
-		location := c.PostForm("event-location")
-		image := c.PostForm("event-image")
-		date := c.PostForm("event-datetime")
+		title := c.PostForm("title")
+		location := c.PostForm("location")
+		image := c.PostForm("image")
+		date := c.PostForm("date")
 
 		// next steps:
 
@@ -132,7 +132,11 @@ func main() {
 
 		if len(title) < 5 || len(title) > 50 {
 			c.HTML(200, "new.html", gin.H{
-				"errorTitle": "Title must be between 5 and 50 characters.",
+				"errorTitle":    "Title must be between 5 and 50 characters.",
+				"eventTitle":    title,
+				"eventLocation": location,
+				"eventImage":    image,
+				"eventDate":     date,
 			})
 			return
 		}
@@ -140,6 +144,10 @@ func main() {
 		if len(location) < 5 || len(location) > 50 {
 			c.HTML(200, "new.html", gin.H{
 				"errorLocation": "Location must be more than 5 characters and less than 50.",
+				"eventTitle":    title,
+				"eventLocation": location,
+				"eventImage":    image,
+				"eventDate":     date,
 			})
 			return
 		}
@@ -148,14 +156,22 @@ func main() {
 
 		if !isValidUrl(image) {
 			c.HTML(200, "new.html", gin.H{
-				"errorImage": "Invalid URL",
+				"errorImage":    "Invalid URL",
+				"eventTitle":    title,
+				"eventLocation": location,
+				"eventImage":    image,
+				"eventDate":     date,
 			})
 			return
 		}
 
 		if err != nil || !urlObj.IsAbs() {
 			c.HTML(200, "new.html", gin.H{
-				"errorImage": "Invalid URL",
+				"errorImage":    "Invalid URL",
+				"eventTitle":    title,
+				"eventLocation": location,
+				"eventImage":    image,
+				"eventDate":     date,
 			})
 			return
 		}
@@ -166,7 +182,11 @@ func main() {
 
 		if fileTypeStr[1] != "jpg" && fileTypeStr[1] != "png" && fileTypeStr[1] != "jpeg" && fileTypeStr[1] != "gif" && fileTypeStr[1] != ".gifv" {
 			c.HTML(200, "new.html", gin.H{
-				"errorImage": "Invalid Image Type (must be .png, .jpg, .jpeg, .gif or .gifv)",
+				"errorImage":    "Invalid Image Type (must be .png, .jpg, .jpeg, .gif or .gifv)",
+				"eventTitle":    title,
+				"eventLocation": location,
+				"eventImage":    image,
+				"eventDate":     date,
 			})
 			return
 		}
@@ -176,6 +196,10 @@ func main() {
 		if len(datetime) != 2 {
 			c.HTML(200, "new.html", gin.H{
 				"errorDatetime": "Invalid Date",
+				"eventTitle":    title,
+				"eventLocation": location,
+				"eventImage":    image,
+				"eventDate":     date,
 			})
 			return
 		}
@@ -186,6 +210,10 @@ func main() {
 
 			c.HTML(200, "new.html", gin.H{
 				"errorDatetime": "Invalid Date",
+				"eventTitle":    title,
+				"eventLocation": location,
+				"eventImage":    image,
+				"eventDate":     date,
 			})
 			return
 		}
@@ -193,6 +221,10 @@ func main() {
 		if len(dateStr[0]) != 4 {
 			c.HTML(200, "new.html", gin.H{
 				"errorDatetime": "Invalid Date",
+				"eventTitle":    title,
+				"eventLocation": location,
+				"eventImage":    image,
+				"eventDate":     date,
 			})
 			return
 		}
@@ -201,6 +233,10 @@ func main() {
 		if err != nil {
 			c.HTML(200, "new.html", gin.H{
 				"errorDatetime": "Invalid Date",
+				"eventTitle":    title,
+				"eventLocation": location,
+				"eventImage":    image,
+				"eventDate":     date,
 			})
 			return
 		}
@@ -208,6 +244,10 @@ func main() {
 		if len(dateStr[1]) != 2 {
 			c.HTML(200, "new.html", gin.H{
 				"errorDatetime": "Invalid Date",
+				"eventTitle":    title,
+				"eventLocation": location,
+				"eventImage":    image,
+				"eventDate":     date,
 			})
 			return
 		}
@@ -216,6 +256,10 @@ func main() {
 		if err != nil {
 			c.HTML(200, "new.html", gin.H{
 				"errorDatetime": "Invalid Date",
+				"eventTitle":    title,
+				"eventLocation": location,
+				"eventImage":    image,
+				"eventDate":     date,
 			})
 			return
 		}
@@ -223,6 +267,10 @@ func main() {
 		if len(dateStr[2]) != 2 {
 			c.HTML(200, "new.html", gin.H{
 				"errorDatetime": "Invalid Date",
+				"eventTitle":    title,
+				"eventLocation": location,
+				"eventImage":    image,
+				"eventDate":     date,
 			})
 			return
 		}
@@ -231,6 +279,10 @@ func main() {
 		if err != nil {
 			c.HTML(200, "new.html", gin.H{
 				"errorDatetime": "Invalid Date",
+				"eventTitle":    title,
+				"eventLocation": location,
+				"eventImage":    image,
+				"eventDate":     date,
 			})
 			return
 		}
@@ -240,6 +292,10 @@ func main() {
 		if len(timeStr) != 2 {
 			c.HTML(200, "new.html", gin.H{
 				"errorDatetime": "Invalid Date",
+				"eventTitle":    title,
+				"eventLocation": location,
+				"eventImage":    image,
+				"eventDate":     date,
 			})
 			return
 		}
@@ -247,6 +303,10 @@ func main() {
 		if len(timeStr[0]) != 2 {
 			c.HTML(200, "new.html", gin.H{
 				"errorDatetime": "Invalid Date",
+				"eventTitle":    title,
+				"eventLocation": location,
+				"eventImage":    image,
+				"eventDate":     date,
 			})
 			return
 		}
@@ -255,6 +315,10 @@ func main() {
 		if err != nil {
 			c.HTML(200, "new.html", gin.H{
 				"errorDatetime": "Invalid Date",
+				"eventTitle":    title,
+				"eventLocation": location,
+				"eventImage":    image,
+				"eventDate":     date,
 			})
 			return
 		}
@@ -262,6 +326,10 @@ func main() {
 		if len(timeStr[1]) != 2 {
 			c.HTML(200, "new.html", gin.H{
 				"errorDatetime": "Invalid Date",
+				"eventTitle":    title,
+				"eventLocation": location,
+				"eventImage":    image,
+				"eventDate":     date,
 			})
 			return
 		}
@@ -270,6 +338,10 @@ func main() {
 		if err != nil {
 			c.HTML(200, "new.html", gin.H{
 				"errorDatetime": "Invalid Date",
+				"eventTitle":    title,
+				"eventLocation": location,
+				"eventImage":    image,
+				"eventDate":     date,
 			})
 			return
 		}
@@ -288,10 +360,13 @@ func main() {
 		events := make([]Event, 0)
 		db.Find(&events)
 
-		c.HTML(200, "index.html", gin.H{
-			"title":  "Main website",
-			"events": events,
-		})
+		c.Redirect(301, "/")
+		c.Abort()
+
+		//c.HTML(200, "index.html", gin.H{
+		//	"title":  "Main website",
+		//	"events": events,
+		//})
 		// 2.
 		// create new event in database
 
