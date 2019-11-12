@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-group">
                     <label for="event-datetime">Date & Time</label>
-                    <input type="text" class="form-control" id="event-datetime" name="date" placeholder="YYYY-MM-DDTHH:MM" value={{.eventDate}}>
+                    <input type="datetime-local" class="form-control" id="event-datetime" name="date" placeholder="YYYY-MM-DDTHH:MM" value={{.eventDate}}>
                     {{ if .errorDatetime  }}
                     <small class="form-text" style="color: red">
                         {{ .errorDatetime }}
