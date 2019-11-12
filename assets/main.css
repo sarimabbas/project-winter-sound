@@ -96,3 +96,28 @@ body {
 .rsvp-event-form {
   max-width: 40vw;
 }
+
+.rsvp-list {
+  height: 100px;
+  overflow: auto;
+}
+
+.two-col {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.right-col {
+  width: 30vw;
+}
+
+@media (max-width: 900px) {
+  .two-col {
+    display: unset;
+    justify-content: unset;
+  }
+
+  .right-col {
+    margin-top: 30px;
+  }
+}
