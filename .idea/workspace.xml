@@ -108,9 +108,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="34" />
-    <option name="y" value="23" />
-    <option name="width" value="1779" />
+    <option name="x" value="505" />
+    <option name="y" value="35" />
+    <option name="width" value="2113" />
     <option name="height" value="1027" />
   </component>
   <component name="ProjectLevelVcsManager">
@@ -229,7 +229,7 @@
     <entry file="file://$PROJECT_DIR$/go.mod" />
     <entry file="file://$PROJECT_DIR$/templates/index.gohtml" />
     <entry file="file://$PROJECT_DIR$/templates/layout.gohtml" />
-    <entry file="file://$PROJECT_DIR$/../go-workspace/src/github.com/jinzhu/gorm/dialect_postgres.go">
+    <entry file="file://$USER_HOME$/go-workspace/src/github.com/jinzhu/gorm/dialect_postgres.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1095">
           <caret line="79" column="13" lean-forward="true" selection-start-line="79" selection-start-column="13" selection-end-line="79" selection-end-column="13" />
