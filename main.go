@@ -33,7 +33,7 @@ func main() {
 
 	defer db.Close()
 
-	db.AutoMigrate(&Event{})
+	db.AutoMigrate(&Event{}, &RSVP{})
 
 	r := gin.Default()
 
@@ -108,9 +108,12 @@ func main() {
 			})
 		} else {
 			event := Event{}
+			rsvps := make([]RSVP, 0)
 			db.Where("id = ?", idNum).First(&event)
+			db.Where("event_id = ?", idNum).Find(&rsvps)
 			c.HTML(200, "event.html", gin.H{
 				"event": event,
+				"rsvps": rsvps,
 			})
 		}
 	})
@@ -363,23 +366,27 @@ func main() {
 		c.Redirect(301, "/")
 		c.Abort()
 
-		//c.HTML(200, "index.html", gin.H{
-		//	"title":  "Main website",
-		//	"events": events,
-		//})
-		// 2.
-		// create new event in database
+	})
 
-		// 3.
-		// redirect to newly created event page
+	r.POST("/rsvp_events/:id", func(c *gin.Context) {
+		id := c.Param("id")
+		idNum, err := strconv.Atoi(id)
+		email := c.PostForm("rsvp-email")
 
-		// display (debug)
-		//c.JSON(200, gin.H{
-		//	"title":    title,
-		//	"location": location,
-		//	"image":    image,
-		//	"date":     date,
-		//})
+		if err != nil {
+			c.JSON(404, gin.H{
+				"error": "id error",
+			})
+		} else {
+			rsvp := RSVP{
+				EventID: idNum,
+				Email:   email,
+			}
+			db.Create(&rsvp)
+
+			c.Redirect(301, "/")
+			c.Abort()
+		}
 	})
 
 	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")

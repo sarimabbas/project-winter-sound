@@ -17,7 +17,7 @@
             {{/* <a href="/events/{{.event.ID}}/donate" class="btn btn-primary">Support</a> */}}
             <br/><br/>
             <h2>Attendees</h2>
-            <form class="rsvp-event-form" action="/events/{{.event.ID}}" method="POST">
+            <form class="rsvp-event-form" action="/rsvp_events/{{.event.ID}}" method="POST">
                 <div class="form-group">
                     <label for="rsvp-email">Your email</label>
                         <div class="form-single-line">
@@ -26,6 +26,11 @@
                         </div>
                 </div>
             </form>
+            <ul>
+            {{range .rsvps}}
+                <li>{{.Email}}</li>
+            {{end}}
+            </ul>
         </div>
         {{template "footer"}}
     </body>
