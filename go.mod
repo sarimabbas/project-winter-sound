@@ -1,9 +1,9 @@
-module github.com/yale-mgt-660-fall-2019/project-winter-sound
+module winter-sound
 
-go 1.12
+go 1.13
 
-require(
-	"github.com/gin-gonic/gin"
-	"github.com/jinzhu/gorm"
-	"github.com/jinzhu/gorm/dialects/postgres"
+require (
+	github.com/gin-gonic/gin
+	github.com/jinzhu/gorm
+	github.com/jinzhu/gorm/dialects/postgres
 )
