@@ -384,7 +384,7 @@ func main() {
 			}
 			db.Create(&rsvp)
 
-			c.Redirect(301, "/")
+			c.Redirect(301, "/events/"+id)
 			c.Abort()
 		}
 	})
