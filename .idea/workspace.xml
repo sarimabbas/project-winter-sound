@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="98451fb5-6221-497f-bb84-7091704377e5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/html/event.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/event.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,11 +14,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main.go">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="579">
-                  <caret line="137" column="44" selection-start-line="137" selection-start-column="44" selection-end-line="137" selection-end-column="44" />
+                <state relative-caret-position="477">
+                  <caret line="408" column="13" lean-forward="true" selection-start-line="408" selection-start-column="13" selection-end-line="408" selection-end-column="13" />
                   <folding>
                     <element signature="e#14#172#0" expanded="true" />
                     <element signature="e#2537#8155#0" />
@@ -28,11 +27,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/html/event.html">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="375">
-                  <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
+                  <caret line="25" column="70" selection-start-line="25" selection-start-column="70" selection-end-line="25" selection-end-column="70" />
                 </state>
               </provider>
             </entry>
@@ -63,8 +62,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/html/new.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="180">
-                  <caret line="19" column="80" selection-start-line="19" selection-start-column="80" selection-end-line="19" selection-end-column="80" />
+                <state relative-caret-position="480">
+                  <caret line="39" column="50" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
                 </state>
               </provider>
             </entry>
@@ -97,18 +96,18 @@
         <option value="$PROJECT_DIR$/assets/index.html" />
         <option value="$PROJECT_DIR$/assets/main.css" />
         <option value="$PROJECT_DIR$/html/index.html" />
-        <option value="$PROJECT_DIR$/html/new.html" />
         <option value="$PROJECT_DIR$/docs/index.md" />
         <option value="$PROJECT_DIR$/event_models.go" />
         <option value="$PROJECT_DIR$/go.mod" />
-        <option value="$PROJECT_DIR$/main.go" />
+        <option value="$PROJECT_DIR$/html/new.html" />
         <option value="$PROJECT_DIR$/html/event.html" />
+        <option value="$PROJECT_DIR$/main.go" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="64" />
-    <option name="y" value="23" />
+    <option name="x" value="473" />
+    <option name="y" value="62" />
     <option name="width" value="1616" />
     <option name="height" value="1027" />
   </component>
@@ -171,10 +170,10 @@
     </option>
   </component>
   <component name="ToolWindowManager">
-    <frame x="64" y="23" width="1616" height="1027" extended-state="0" />
+    <frame x="473" y="62" width="1616" height="1027" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12770012" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12770012" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -187,7 +186,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.1828877" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.1828877" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -261,28 +260,28 @@
     <entry file="file://$PROJECT_DIR$/html/components.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.go">
+    <entry file="file://$PROJECT_DIR$/html/event.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="579">
-          <caret line="137" column="44" selection-start-line="137" selection-start-column="44" selection-end-line="137" selection-end-column="44" />
-          <folding>
-            <element signature="e#14#172#0" expanded="true" />
-            <element signature="e#2537#8155#0" />
-          </folding>
+        <state relative-caret-position="375">
+          <caret line="25" column="70" selection-start-line="25" selection-start-column="70" selection-end-line="25" selection-end-column="70" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/html/new.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="19" column="80" selection-start-line="19" selection-start-column="80" selection-end-line="19" selection-end-column="80" />
+        <state relative-caret-position="480">
+          <caret line="39" column="50" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/html/event.html">
+    <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
+        <state relative-caret-position="477">
+          <caret line="408" column="13" lean-forward="true" selection-start-line="408" selection-start-column="13" selection-end-line="408" selection-end-column="13" />
+          <folding>
+            <element signature="e#14#172#0" expanded="true" />
+            <element signature="e#2537#8155#0" />
+          </folding>
         </state>
       </provider>
     </entry>

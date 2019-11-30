@@ -1,6 +1,8 @@
 package main
 
 import (
+	"crypto/sha256"
+	"fmt"
 	"math/rand"
 	"net/url"
 	"os"
@@ -407,7 +409,10 @@ func main() {
 			}
 			db.Create(&rsvp)
 
-			c.Redirect(301, "/events/"+id+"?confirmation="+randomString())
+			hash := sha256.Sum256([]byte(email))
+			hashString := fmt.Sprintf("%x", hash)
+
+			c.Redirect(301, "/events/"+id+"?confirmation="+hashString[:7])
 			c.Abort()
 		}
 	})
