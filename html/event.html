@@ -26,6 +26,11 @@
                         <p>Your confirmation code: {{.confirmationCode}}</p>
                     </div>
                 {{ end }}
+                {{if .rsvpError}}
+                    <small class="errors form-text form-error" style="color: red">
+                        <p>Only Yalies allowed!</p>
+                    </small>
+                {{end}}
                 <form class="rsvp-event-form" action="/rsvp_events/{{.event.ID}}" method="POST">
                     <div class="form-group">
                         <label for="rsvp-email">Your email</label>

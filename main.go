@@ -110,9 +110,16 @@ func main() {
 
 		confirmationCode := c.Query("confirmation")
 		showConfirm := false
+		showRSVPError := false
 
 		if confirmationCode != "" {
 			showConfirm = true
+		}
+
+		rsvpError := c.Query("rsvp_error")
+
+		if rsvpError != "" {
+			showRSVPError = true
 		}
 		// new event page
 		if id == "new" {
@@ -139,6 +146,7 @@ func main() {
 				"rsvps":            rsvps,
 				"showConfirm":      showConfirm,
 				"confirmationCode": confirmationCode,
+				"rsvpError":        showRSVPError,
 			})
 		}
 	})
@@ -398,6 +406,10 @@ func main() {
 		idNum, err := strconv.Atoi(id)
 		email := c.PostForm("rsvp-email")
 
+		if !strings.Contains(email, "@yale.edu") {
+			c.Redirect(301, "/events/"+id+"?rsvp_error="+"true")
+			return
+		}
 		if err != nil {
 			c.JSON(404, gin.H{
 				"error": "id error",
