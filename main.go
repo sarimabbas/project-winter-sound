@@ -1,6 +1,7 @@
 package main
 
 import (
+	"math/rand"
 	"net/url"
 	"os"
 	"strconv"
@@ -20,6 +21,20 @@ func isValidUrl(toTest string) bool {
 	} else {
 		return true
 	}
+}
+
+func randomString() string {
+	rand.Seed(time.Now().UnixNano())
+	chars := []rune("ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ" +
+		"abcdefghijklmnopqrstuvwxyzåäö" +
+		"0123456789")
+	length := 8
+	var b strings.Builder
+	for i := 0; i < length; i++ {
+		b.WriteRune(chars[rand.Intn(len(chars))])
+	}
+	str := b.String()
+	return str
 }
 
 func main() {
@@ -91,6 +106,12 @@ func main() {
 		// get id
 		id := c.Param("id")
 
+		confirmationCode := c.Query("confirmation")
+		showConfirm := false
+
+		if confirmationCode != "" {
+			showConfirm = true
+		}
 		// new event page
 		if id == "new" {
 			c.HTML(200, "new.html", gin.H{
@@ -112,8 +133,10 @@ func main() {
 			db.Where("id = ?", idNum).First(&event)
 			db.Where("event_id = ?", idNum).Find(&rsvps)
 			c.HTML(200, "event.html", gin.H{
-				"event": event,
-				"rsvps": rsvps,
+				"event":            event,
+				"rsvps":            rsvps,
+				"showConfirm":      showConfirm,
+				"confirmationCode": confirmationCode,
 			})
 		}
 	})
@@ -384,7 +407,7 @@ func main() {
 			}
 			db.Create(&rsvp)
 
-			c.Redirect(301, "/events/"+id)
+			c.Redirect(301, "/events/"+id+"?confirmation="+randomString())
 			c.Abort()
 		}
 	})

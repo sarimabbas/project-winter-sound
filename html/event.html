@@ -21,6 +21,11 @@
             </div>
             <div class="right-col">
                 <h2>Attendees</h2>
+                {{ if .showConfirm }}
+                    <div class="confirmation-code">
+                        <p>Your confirmation code: {{.confirmationCode}}</p>
+                    </div>
+                {{ end }}
                 <form class="rsvp-event-form" action="/rsvp_events/{{.event.ID}}" method="POST">
                     <div class="form-group">
                         <label for="rsvp-email">Your email</label>
