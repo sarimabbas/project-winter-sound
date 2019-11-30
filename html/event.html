@@ -22,15 +22,10 @@
             <div class="right-col">
                 <h2>Attendees</h2>
                 {{ if .showConfirm }}
-                    <div class="confirmation-code">
-                        <p>Your confirmation code: {{.confirmationCode}}</p>
-                    </div>
+                <section class="confirmation-code">
+                    <p>Your confirmation code: {{.confirmationCode}}</p>
+                </section>
                 {{ end }}
-                {{if .rsvpError}}
-                    <small class="errors form-text form-error" style="color: red">
-                        <p>Only Yalies allowed!</p>
-                    </small>
-                {{end}}
                 <form class="rsvp-event-form" action="/rsvp_events/{{.event.ID}}" method="POST">
                     <div class="form-group">
                         <label for="rsvp-email">Your email</label>
@@ -39,6 +34,11 @@
                                 placeholder="jane.doe@gmail.com">
                             <button type="submit" class="btn btn-primary btn-single-line">RSVP</button>
                         </div>
+                        {{if .rsvpError}}
+                        <small class="errors form-text form-error" style="color: red">
+                            <p>Only Yalies allowed!</p>
+                        </small>
+                        {{end}}
                     </div>
                 </form>
                 <div class="rsvp-list">
