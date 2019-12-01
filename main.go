@@ -6,6 +6,7 @@ import (
 	"math/rand"
 	"net/url"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -23,6 +24,14 @@ func isValidUrl(toTest string) bool {
 	} else {
 		return true
 	}
+}
+
+func isValidEmail(toTest string) bool {
+	var rxEmail = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+	if len(toTest) > 254 || !rxEmail.MatchString(toTest) {
+		return false
+	}
+	return true
 }
 
 func randomString() string {
@@ -405,6 +414,11 @@ func main() {
 		id := c.Param("id")
 		idNum, err := strconv.Atoi(id)
 		email := c.PostForm("rsvp-email")
+
+		if !isValidEmail(email) {
+			c.Redirect(301, "/events/"+id+"?rsvp_error="+"true")
+			return
+		}
 
 		if !strings.Contains(email, "@yale.edu") {
 			c.Redirect(301, "/events/"+id+"?rsvp_error="+"true")
