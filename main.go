@@ -438,9 +438,19 @@ func main() {
 			hash := sha256.Sum256([]byte(email))
 			hashString := fmt.Sprintf("%x", hash)
 
-			c.Redirect(301, "/events/"+id+"?confirmation="+hashString[:7])
-			c.Abort()
-
+			//c.Redirect(301, "/events/"+id+"?confirmation="+hashString[:7])
+			//c.Abort()
+			event := Event{}
+			rsvps := make([]RSVP, 0)
+			db.Where("id = ?", idNum).First(&event)
+			db.Where("event_id = ?", idNum).Find(&rsvps)
+			c.HTML(200, "event.html", gin.H{
+				"event":            event,
+				"rsvps":            rsvps,
+				"showConfirm":      true,
+				"confirmationCode": hashString[:7],
+				"rsvpError":        false,
+			})
 		}
 	})
 
