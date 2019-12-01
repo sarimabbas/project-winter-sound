@@ -426,6 +426,7 @@ func main() {
 
 			c.Redirect(301, "/events/"+id+"?confirmation="+hashString[:7])
 			c.Abort()
+
 		}
 	})
 
