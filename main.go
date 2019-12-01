@@ -116,7 +116,15 @@ func main() {
 	r.GET("/events/:id", func(c *gin.Context) {
 		// get id
 		id := c.Param("id")
+		s1 := rand.NewSource(time.Now().UnixNano())
+		r1 := rand.New(s1)
+		supportType := r1.Intn(100)
 
+		if supportType < 50 {
+			supportType = 0
+		} else {
+			supportType = 1
+		}
 		confirmationCode := c.Query("confirmation")
 		showConfirm := false
 		showRSVPError := false
@@ -156,6 +164,7 @@ func main() {
 				"showConfirm":      showConfirm,
 				"confirmationCode": confirmationCode,
 				"rsvpError":        showRSVPError,
+				"supportType":      supportType,
 			})
 		}
 	})
@@ -414,7 +423,14 @@ func main() {
 		id := c.Param("id")
 		idNum, err := strconv.Atoi(id)
 		email := c.PostForm("rsvp-email")
-
+		s1 := rand.NewSource(time.Now().UnixNano())
+		r1 := rand.New(s1)
+		supportType := r1.Intn(100)
+		if supportType < 50 {
+			supportType = 0
+		} else {
+			supportType = 1
+		}
 		if !isValidEmail(email) {
 			c.Redirect(301, "/events/"+id+"?rsvp_error="+"true")
 			return
@@ -450,6 +466,7 @@ func main() {
 				"showConfirm":      true,
 				"confirmationCode": hashString[:7],
 				"rsvpError":        false,
+				"supportType":      supportType,
 			})
 		}
 	})
