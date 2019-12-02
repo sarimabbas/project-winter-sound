@@ -427,8 +427,10 @@ func main() {
 		r1 := rand.New(s1)
 		supportType := r1.Intn(100)
 		if supportType < 50 {
+			// donate
 			supportType = 0
 		} else {
+			// support
 			supportType = 1
 		}
 		if !isValidEmail(email) {
