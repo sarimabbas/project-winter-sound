@@ -47,7 +47,6 @@
         </entry>
       </file>
     </leaf>
-=======
     <splitter split-orientation="horizontal" split-proportion="0.51323175">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -309,7 +308,6 @@
           <folding>
             <element signature="e#14#172#0" expanded="true" />
           </folding>
-=======
         <state relative-caret-position="120">
           <caret line="424" column="29" lean-forward="true" selection-start-line="424" selection-start-column="29" selection-end-line="424" selection-end-column="29" />
         </state>
