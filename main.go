@@ -27,6 +27,7 @@ func isValidUrl(toTest string) bool {
 	}
 }
 
+// tests a string to make sure it is a valid email address using regex
 func isValidEmail(toTest string) bool {
 	var rxEmail = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
 	if len(toTest) > 254 || !rxEmail.MatchString(toTest) {
@@ -35,23 +36,11 @@ func isValidEmail(toTest string) bool {
 	return true
 }
 
-func randomString() string {
-	rand.Seed(time.Now().UnixNano())
-	chars := []rune("ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ" +
-		"abcdefghijklmnopqrstuvwxyzåäö" +
-		"0123456789")
-	length := 8
-	var b strings.Builder
-	for i := 0; i < length; i++ {
-		b.WriteRune(chars[rand.Intn(len(chars))])
-	}
-	str := b.String()
-	return str
-}
-
 func main() {
+	// gets url of db from env variables
 	dbUrl := os.Getenv("DBURL")
 
+	// opens a new connection to db using gorm package
 	db, err := gorm.Open("postgres", dbUrl)
 
 	if err != nil {
@@ -60,10 +49,12 @@ func main() {
 
 	defer db.Close()
 
+	// db set up if models aren't already connected
 	db.AutoMigrate(&Event{}, &RSVP{})
 
 	r := gin.Default()
 
+	// loads html templates
 	r.LoadHTMLFiles("html/index.html",
 		"html/about.html",
 		"html/event.html",
@@ -74,8 +65,10 @@ func main() {
 		panic("failed to load html files")
 	}
 
+	// loads static assets
 	r.Static("/assets", "./assets")
 
+	// handler for home route
 	r.GET("/", func(c *gin.Context) {
 		events := make([]Event, 0)
 		db.Find(&events)
@@ -86,12 +79,14 @@ func main() {
 		})
 	})
 
+	// handler for about page
 	r.GET("/about", func(c *gin.Context) {
 		c.HTML(200, "about.html", gin.H{
 			"title": "About page",
 		})
 	})
 
+	// handler for events page
 	r.GET("/api/events", func(c *gin.Context) {
 		events := make([]Event, 0)
 		db.Find(&events)
@@ -100,6 +95,7 @@ func main() {
 		})
 	})
 
+	// handler for events api
 	r.GET("/api/events/:id", func(c *gin.Context) {
 		id := c.Param("id")
 		idNum, err := strconv.Atoi(id)
@@ -114,6 +110,7 @@ func main() {
 		}
 	})
 
+	// handler for events detail page
 	r.GET("/events/:id", func(c *gin.Context) {
 		// get id
 		id := c.Param("id")
@@ -175,6 +172,7 @@ func main() {
 		}
 	})
 
+	// handler for new events post route
 	r.POST("/events/new", func(c *gin.Context) {
 
 		// get data from form
