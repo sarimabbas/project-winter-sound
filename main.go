@@ -422,7 +422,7 @@ func main() {
 	r.POST("/rsvp_events/:id", func(c *gin.Context) {
 		id := c.Param("id")
 		idNum, err := strconv.Atoi(id)
-		email := c.PostForm("rsvp-email")
+		email := c.PostForm("email")
 		s1 := rand.NewSource(time.Now().UnixNano())
 		r1 := rand.New(s1)
 		supportType := r1.Intn(100)
