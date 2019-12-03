@@ -8,7 +8,6 @@
         <div class="two-col">
             <div class="left-col">
                 <h1 class="title">{{ .event.Title }}</h1>
-                <p>{{.supportType}}</p>
                 <img src="{{.event.Image}}" alt="{{.event.Title}}">
                 <br /><br />
                 <h2>Details</h2>
@@ -16,9 +15,12 @@
                     <li>Date & Time: <time>{{.event.Date}}</time></li>
                     <li>Location: {{.event.Location}}</li>
                 </ul>
-                <h2>Donate</h2>
-                <a href="/events/{{.event.ID}}/donate" class="btn btn-primary">Donate</a>
-                {{/* <a href="/events/{{.event.ID}}/donate" class="btn btn-primary">Support</a> */}}
+                <h2>Contribute</h2>
+                 {{ if (eq .supportType 0) }}
+                    <a href="/events/{{.event.ID}}/donate" class="btn btn-primary" onclick="return sendEvent('donate')">Want to donate?</a>
+                {{ else }}
+                    <a href="/events/{{.event.ID}}/donate" class="btn btn-primary" onclick="return sendEvent('support')">Want to support?</a>
+                {{ end }}
             </div>
             <div class="right-col">
                 <h2>Attendees</h2>
@@ -61,6 +63,12 @@
             </div>
         </div>
     </div>
+    <script>
+        function sendEvent(eType) {
+            gtag('event', eType);
+            return false;
+        }
+    </script>
     {{template "footer"}}
 </body>
 
