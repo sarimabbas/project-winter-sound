@@ -1,8 +1,13 @@
 package main
 
 import (
+	"crypto/sha256"
+	"fmt"
+	"log"
+	"math/rand"
 	"net/url"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -20,6 +25,28 @@ func isValidUrl(toTest string) bool {
 	} else {
 		return true
 	}
+}
+
+func isValidEmail(toTest string) bool {
+	var rxEmail = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+	if len(toTest) > 254 || !rxEmail.MatchString(toTest) {
+		return false
+	}
+	return true
+}
+
+func randomString() string {
+	rand.Seed(time.Now().UnixNano())
+	chars := []rune("ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ" +
+		"abcdefghijklmnopqrstuvwxyzåäö" +
+		"0123456789")
+	length := 8
+	var b strings.Builder
+	for i := 0; i < length; i++ {
+		b.WriteRune(chars[rand.Intn(len(chars))])
+	}
+	str := b.String()
+	return str
 }
 
 func main() {
@@ -90,7 +117,28 @@ func main() {
 	r.GET("/events/:id", func(c *gin.Context) {
 		// get id
 		id := c.Param("id")
+		s1 := rand.NewSource(time.Now().UnixNano())
+		r1 := rand.New(s1)
+		supportType := r1.Intn(100)
 
+		if supportType < 50 {
+			supportType = 0
+		} else {
+			supportType = 1
+		}
+		confirmationCode := c.Query("confirmation")
+		showConfirm := false
+		showRSVPError := false
+
+		if confirmationCode != "" {
+			showConfirm = true
+		}
+
+		rsvpError := c.Query("rsvp_error")
+
+		if rsvpError != "" {
+			showRSVPError = true
+		}
 		// new event page
 		if id == "new" {
 			c.HTML(200, "new.html", gin.H{
@@ -112,13 +160,18 @@ func main() {
 			db.Where("id = ?", idNum).First(&event)
 			db.Where("event_id = ?", idNum).Find(&rsvps)
 			c.HTML(200, "event.html", gin.H{
-				"event": event,
-				"rsvps": rsvps,
+				"event":            event,
+				"rsvps":            rsvps,
+				"showConfirm":      showConfirm,
+				"confirmationCode": confirmationCode,
+				"rsvpError":        showRSVPError,
+				"supportType":      supportType,
 			})
 		}
 	})
 
 	r.POST("/events/new", func(c *gin.Context) {
+
 		// get data from form
 		title := c.PostForm("title")
 		location := c.PostForm("location")
@@ -194,7 +247,11 @@ func main() {
 			return
 		}
 
+		log.Println(date)
+
 		datetime := strings.Split(date, "T")
+
+		log.Println(datetime)
 
 		if len(datetime) != 2 {
 			c.HTML(200, "new.html", gin.H{
@@ -207,8 +264,12 @@ func main() {
 			return
 		}
 
+		// e.g. 2019-12-17
 		dateStr := strings.Split(datetime[0], "-")
 
+		log.Println(dateStr)
+
+		// e.g. [2019, 12, 17]
 		if len(dateStr) != 3 {
 
 			c.HTML(200, "new.html", gin.H{
@@ -221,6 +282,7 @@ func main() {
 			return
 		}
 
+		// e.g. 2019
 		if len(dateStr[0]) != 4 {
 			c.HTML(200, "new.html", gin.H{
 				"errorDatetime": "Invalid Date",
@@ -232,6 +294,7 @@ func main() {
 			return
 		}
 
+		// e.g. 2019
 		yearInt, err := strconv.Atoi(dateStr[0])
 		if err != nil {
 			c.HTML(200, "new.html", gin.H{
@@ -244,6 +307,7 @@ func main() {
 			return
 		}
 
+		// e.g. 12
 		if len(dateStr[1]) != 2 {
 			c.HTML(200, "new.html", gin.H{
 				"errorDatetime": "Invalid Date",
@@ -255,6 +319,7 @@ func main() {
 			return
 		}
 
+		// e.g. 12
 		monthInt, err := strconv.Atoi(dateStr[1])
 		if err != nil {
 			c.HTML(200, "new.html", gin.H{
@@ -267,6 +332,7 @@ func main() {
 			return
 		}
 
+		// e.g. 17, 01, 05 etc
 		if len(dateStr[2]) != 2 {
 			c.HTML(200, "new.html", gin.H{
 				"errorDatetime": "Invalid Date",
@@ -278,6 +344,7 @@ func main() {
 			return
 		}
 
+		// e.g. 17, 01, 05 etc
 		dayInt, err := strconv.Atoi(dateStr[2])
 		if err != nil {
 			c.HTML(200, "new.html", gin.H{
@@ -292,16 +359,18 @@ func main() {
 
 		timeStr := strings.Split(datetime[1], ":")
 
-		if len(timeStr) != 2 {
-			c.HTML(200, "new.html", gin.H{
-				"errorDatetime": "Invalid Date",
-				"eventTitle":    title,
-				"eventLocation": location,
-				"eventImage":    image,
-				"eventDate":     date,
-			})
-			return
-		}
+		log.Println(timeStr)
+
+		// if len(timeStr) != 2 {
+		// 	c.HTML(200, "new.html", gin.H{
+		// 		"errorDatetime": "Invalid Date",
+		// 		"eventTitle":    title,
+		// 		"eventLocation": location,
+		// 		"eventImage":    image,
+		// 		"eventDate":     date,
+		// 	})
+		// 	return
+		// }
 
 		if len(timeStr[0]) != 2 {
 			c.HTML(200, "new.html", gin.H{
@@ -363,7 +432,7 @@ func main() {
 		events := make([]Event, 0)
 		db.Find(&events)
 
-		c.Redirect(301, "/event/"+strconv.Itoa(event.ID))
+		c.Redirect(301, "/events/"+strconv.Itoa(event.ID))
 		c.Abort()
 
 	})
@@ -371,8 +440,26 @@ func main() {
 	r.POST("/rsvp_events/:id", func(c *gin.Context) {
 		id := c.Param("id")
 		idNum, err := strconv.Atoi(id)
-		email := c.PostForm("rsvp-email")
+		email := c.PostForm("email")
+		s1 := rand.NewSource(time.Now().UnixNano())
+		r1 := rand.New(s1)
+		supportType := r1.Intn(100)
+		if supportType < 50 {
+			// donate
+			supportType = 0
+		} else {
+			// support
+			supportType = 1
+		}
+		if !isValidEmail(email) {
+			c.Redirect(301, "/events/"+id+"?rsvp_error="+"true")
+			return
+		}
 
+		if !strings.Contains(email, "@yale.edu") {
+			c.Redirect(301, "/events/"+id+"?rsvp_error="+"true")
+			return
+		}
 		if err != nil {
 			c.JSON(404, gin.H{
 				"error": "id error",
@@ -384,8 +471,23 @@ func main() {
 			}
 			db.Create(&rsvp)
 
-			c.Redirect(301, "/")
-			c.Abort()
+			hash := sha256.Sum256([]byte(email))
+			hashString := fmt.Sprintf("%x", hash)
+
+			//c.Redirect(301, "/events/"+id+"?confirmation="+hashString[:7])
+			//c.Abort()
+			event := Event{}
+			rsvps := make([]RSVP, 0)
+			db.Where("id = ?", idNum).First(&event)
+			db.Where("event_id = ?", idNum).Find(&rsvps)
+			c.HTML(200, "event.html", gin.H{
+				"event":            event,
+				"rsvps":            rsvps,
+				"showConfirm":      true,
+				"confirmationCode": hashString[:7],
+				"rsvpError":        false,
+				"supportType":      supportType,
+			})
 		}
 	})
 
