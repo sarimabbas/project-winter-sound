@@ -3,6 +3,7 @@ package main
 import (
 	"crypto/sha256"
 	"fmt"
+	"log"
 	"math/rand"
 	"net/url"
 	"os"
@@ -170,6 +171,7 @@ func main() {
 	})
 
 	r.POST("/events/new", func(c *gin.Context) {
+
 		// get data from form
 		title := c.PostForm("title")
 		location := c.PostForm("location")
@@ -245,7 +247,11 @@ func main() {
 			return
 		}
 
+		log.Println(date)
+
 		datetime := strings.Split(date, "T")
+
+		log.Println(datetime)
 
 		if len(datetime) != 2 {
 			c.HTML(200, "new.html", gin.H{
@@ -258,8 +264,12 @@ func main() {
 			return
 		}
 
+		// e.g. 2019-12-17
 		dateStr := strings.Split(datetime[0], "-")
 
+		log.Println(dateStr)
+
+		// e.g. [2019, 12, 17]
 		if len(dateStr) != 3 {
 
 			c.HTML(200, "new.html", gin.H{
@@ -272,6 +282,7 @@ func main() {
 			return
 		}
 
+		// e.g. 2019
 		if len(dateStr[0]) != 4 {
 			c.HTML(200, "new.html", gin.H{
 				"errorDatetime": "Invalid Date",
@@ -283,6 +294,7 @@ func main() {
 			return
 		}
 
+		// e.g. 2019
 		yearInt, err := strconv.Atoi(dateStr[0])
 		if err != nil {
 			c.HTML(200, "new.html", gin.H{
@@ -295,6 +307,7 @@ func main() {
 			return
 		}
 
+		// e.g. 12
 		if len(dateStr[1]) != 2 {
 			c.HTML(200, "new.html", gin.H{
 				"errorDatetime": "Invalid Date",
@@ -306,6 +319,7 @@ func main() {
 			return
 		}
 
+		// e.g. 12
 		monthInt, err := strconv.Atoi(dateStr[1])
 		if err != nil {
 			c.HTML(200, "new.html", gin.H{
@@ -318,6 +332,7 @@ func main() {
 			return
 		}
 
+		// e.g. 17, 01, 05 etc
 		if len(dateStr[2]) != 2 {
 			c.HTML(200, "new.html", gin.H{
 				"errorDatetime": "Invalid Date",
@@ -329,6 +344,7 @@ func main() {
 			return
 		}
 
+		// e.g. 17, 01, 05 etc
 		dayInt, err := strconv.Atoi(dateStr[2])
 		if err != nil {
 			c.HTML(200, "new.html", gin.H{
@@ -343,16 +359,18 @@ func main() {
 
 		timeStr := strings.Split(datetime[1], ":")
 
-		if len(timeStr) != 2 {
-			c.HTML(200, "new.html", gin.H{
-				"errorDatetime": "Invalid Date",
-				"eventTitle":    title,
-				"eventLocation": location,
-				"eventImage":    image,
-				"eventDate":     date,
-			})
-			return
-		}
+		log.Println(timeStr)
+
+		// if len(timeStr) != 2 {
+		// 	c.HTML(200, "new.html", gin.H{
+		// 		"errorDatetime": "Invalid Date",
+		// 		"eventTitle":    title,
+		// 		"eventLocation": location,
+		// 		"eventImage":    image,
+		// 		"eventDate":     date,
+		// 	})
+		// 	return
+		// }
 
 		if len(timeStr[0]) != 2 {
 			c.HTML(200, "new.html", gin.H{
