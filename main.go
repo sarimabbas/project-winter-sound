@@ -159,9 +159,14 @@ func main() {
 			rsvps := make([]RSVP, 0)
 			db.Where("id = ?", idNum).First(&event)
 			db.Where("event_id = ?", idNum).Find(&rsvps)
+
+			formattedDate := event.Date.Format("2006-01-02T15:04:05")
+			formattedDate = formattedDate[0 : len(formattedDate)-3]
+
 			c.HTML(200, "event.html", gin.H{
 				"event":            event,
 				"rsvps":            rsvps,
+				"formattedDate":    formattedDate,
 				"showConfirm":      showConfirm,
 				"confirmationCode": confirmationCode,
 				"rsvpError":        showRSVPError,
