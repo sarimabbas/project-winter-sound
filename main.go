@@ -435,7 +435,7 @@ func main() {
 		events := make([]Event, 0)
 		db.Find(&events)
 
-		c.Redirect(301, "/events/"+strconv.Itoa(event.ID))
+		c.Redirect(302, "/events/"+strconv.Itoa(event.ID))
 		c.Abort()
 
 	})
